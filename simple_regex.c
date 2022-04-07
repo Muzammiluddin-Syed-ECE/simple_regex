@@ -6,9 +6,23 @@
 struct finite_automata_state {
     struct finite_automata_state* next_state;
     char* storage;
-    int storage_Size;
+    int storage_size;
     void (*state_transition)(char* input);
 };
+
+int is_special_character(char a) {
+    switch(a){
+        case '\\':
+            return 1;
+        case '+':
+            return 2;
+        case '*':
+            return 3;
+        case '^':
+            return 4;
+    }
+    return 0;
+}
 
 int match(char* text, int text_size, char* pattern, int pattern_size) {
     //Go letter by letter and see if it matches
