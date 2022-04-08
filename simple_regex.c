@@ -27,11 +27,22 @@ int is_special_character(char a) {
 int match(char* text, int text_size, char* pattern, int pattern_size) {
     //Go letter by letter and see if it matches
     int iterator = 0;
+    int repetition_mode = 0;
     for (int i = 0; i < pattern_size; i++){
-        if (pattern[i] != text[iterator] && pattern[i] != '.'){
-            return 0;
-        } 
-        iterator++;
+        if (pattern[i] == '*' && i > 0) {
+            repetition_mode = 1;
+        }
+        if (repetition_mode != 1) {
+            if (pattern[i] != text[iterator] && pattern[i] != '.'){
+                return 0;
+            }
+            iterator++;
+        } else {
+            while (pattern[i-1] == text[iterator]){
+                iterator++;
+            }
+        }
+        
     }
     return 1;    
 }
