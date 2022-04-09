@@ -30,7 +30,9 @@ int match(char* text, int text_size, char* pattern, int pattern_size) {
     int repetition_mode = 0;
     for (int i = 0; i < pattern_size; i++){
         if (pattern[i] == '*' && i > 0) {
-            repetition_mode = 1;
+            if (pattern[i-1] != '\\') {
+                repetition_mode = 1;
+            }
         }
         if (repetition_mode != 1) {
             if (pattern[i] != text[iterator] && pattern[i] != '.'){
