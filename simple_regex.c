@@ -29,6 +29,7 @@ int match(char* text, int text_size, char* pattern, int pattern_size) {
     int iterator = 0;
     int repetition_mode = 0;
     for (int i = 0; i < pattern_size; i++){
+        printf("%d %d\n", i, iterator);
         if (pattern[i] == '*' && i > 0) {
             if (pattern[i-1] != '\\') {
                 repetition_mode = 1;
@@ -41,8 +42,11 @@ int match(char* text, int text_size, char* pattern, int pattern_size) {
             iterator++;
         } else {
             while (pattern[i-1] == text[iterator]){
+                printf("%c", pattern[i-1]);
+                printf("%c", pattern[i]);
                 iterator++;
             }
+            repetition_mode = 0;
         }
         
     }
@@ -55,7 +59,7 @@ int main(){
     char *test1 = (char*) malloc(12*sizeof(char));
     strcpy(test1, "testingonly");
     char *test2 = (char*) malloc(12*sizeof(char));
-    strcpy(test2, "testin.only");
+    strcpy(test2, "testi*sonly");
     printf("%d\n",match(test1, 12, test2, 12));
     free(test1);
     free(test2);
