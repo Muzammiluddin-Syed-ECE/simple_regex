@@ -2,6 +2,17 @@
 #include <stdlib.h> 
 #include <string.h>
 
+//Descripttion of states
+/*
+State 1 - alphanumeric
+State 2 - open bracket
+State 2a - alpha numeric
+State 2b - close bracket
+State 3 - Special character
+State 3.1a - *, repeat last character until no match
+State 
+*/
+
 //this is a preliminary implementation of a finite_automata for use in more complicated regex
 struct finite_automata_state {
     struct finite_automata_state* next_state;
@@ -32,6 +43,14 @@ int match(char* text, int text_size, char* pattern, int pattern_size) {
         printf("%d %d\n", i, iterator);
         if (pattern[i] == '*' && i > 0) {
             if (pattern[i-1] != '\\') {
+                repetition_mode = 1;
+            }
+        }
+        if (pattern[i] == '+' && i > 0) {
+            if (pattern[i-1] != '\\') {
+                if (pattern[i-1] != text[iterator] && pattern[i-1] != '.'){
+                    return 0;
+                }
                 repetition_mode = 1;
             }
         }
