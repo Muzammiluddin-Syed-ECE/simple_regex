@@ -68,9 +68,9 @@ int state_transition(int state, char input){
             } else if (is_special_character(input)){
                 return 9;
             } else if (input == '[') {
-                return 2;
+                return 5;
             } else if (input >= 30 || input <= 80) {
-                return 1;
+                return 5;
             } else {
                 return 5;
             }
