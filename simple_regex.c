@@ -75,6 +75,17 @@ int state_transition(int state, char input){
                 return 5;
             }
         case 5:
+            if (input == '*'){
+                return 5;
+            } else if (is_special_character(input)){
+                return 5;
+            } else if (input == '[') {
+                return 2;
+            } else if (input >= 30 || input <= 80) {
+                return 1;
+            } else {
+                return 5;
+            }
         case 6:
         case 7:
         case 8:
